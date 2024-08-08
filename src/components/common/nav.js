@@ -1,6 +1,21 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Nav(){
+    const [categories,setCategories] = useState([]);
+    const _getCategories = async ()=>{
+        const url = "https://localhost:7068/api/category";
+        try {
+            const rs = await axios.get(url);
+            setCategories(rs.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(()=>{
+        _getCategories();
+    },[])
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container">
@@ -13,9 +28,13 @@ function Nav(){
                     <li className="nav-item">
                         <Link className="nav-link" to={"/"}>Home</Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to={"/category"}>Category</Link>
-                    </li>
+                    {
+                        categories.map((item,key)=>{
+                            return  <li key={key} className="nav-item">
+                                        <Link className="nav-link" to={"/category"}>{item.name}</Link>
+                                    </li>
+                        })
+                    }
                     <li className="nav-item">
                     <Link className="nav-link" to={"/my-account"}>My Account</Link>
                     </li>
