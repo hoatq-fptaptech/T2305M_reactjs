@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Nav(){
@@ -16,6 +17,10 @@ function Nav(){
     useEffect(()=>{
         _getCategories();
     },[])
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container">
@@ -38,6 +43,9 @@ function Nav(){
                     <li className="nav-item">
                     <Link className="nav-link" to={"/my-account"}>My Account</Link>
                     </li>
+                    <li>
+                        <Button variant="primary" onClick={handleShow}>Login</Button>
+                    </li>
                 </ul>
                 <form className="d-flex" role="search">
                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
@@ -45,6 +53,26 @@ function Nav(){
                 </form>
                 </div>
             </div>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                <Modal.Title>Modal title</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                I will not close if you click outside me. Do not even try to press
+                escape key.
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary">Understood</Button>
+                </Modal.Footer>
+            </Modal>
             </nav>
     )
 }
