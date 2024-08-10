@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Context from "../../context/context";
 
 function Nav(){
+    const {state,setState} = useContext(Context);
     const [categories,setCategories] = useState([]);
     const _getCategories = async ()=>{
         const url = "https://localhost:7068/api/category";
@@ -45,6 +47,9 @@ function Nav(){
                     </li>
                     <li>
                         <Button variant="primary" onClick={handleShow}>Login</Button>
+                    </li>
+                    <li className="nav-item">
+                        <span className="nav-link">Cart({state.cart.length})</span>
                     </li>
                 </ul>
                 <form className="d-flex" role="search">
