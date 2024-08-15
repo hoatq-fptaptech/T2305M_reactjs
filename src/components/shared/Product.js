@@ -1,15 +1,18 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Context from "../../context/context";
+import { ACTION } from "../../context/reducer";
 
 function Product(props){
-    const {state,setState} = useContext(Context);
+    const {state,dispatch} = useContext(Context);
     const product = props.product;
     
     const addToCart = ()=>{
         const cart = state.cart;
         cart.push(product);
-        setState({...state,cart: cart});
+        // setState({...state,cart: cart});
+        dispatch({type:ACTION.UPDATE_CART,payload:cart});
+        // dispatch({type:"AUTHORIZE",payload:"ajhakjfhakjfhak"});
     }
 
     return ( // jsx

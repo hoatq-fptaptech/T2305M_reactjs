@@ -7,12 +7,14 @@ import MyAccount from './components/page/Myaccount';
 import Detail from './components/page/Detail';
 import STATE from './context/initState';
 import { UserProvider } from './context/context';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
+import reducer from './context/reducer';
 //state 
 function App() {
-  const [state,setState] = useState(STATE);
+  const data = localStorage.getItem("state")?JSON.parse(localStorage.getItem("state")):STATE;
+  const [state,dispatch] = useReducer(reducer,data);
   return (
-      <UserProvider value={{state,setState}}>
+      <UserProvider value={{state,dispatch}}>
         <Nav />
         <main>
           <Routes>
