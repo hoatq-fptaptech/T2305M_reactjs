@@ -9,6 +9,7 @@ import STATE from './context/initState';
 import { UserProvider } from './context/context';
 import { useReducer, useState } from 'react';
 import reducer from './context/reducer';
+import Login from './components/page/Login';
 //state 
 function App() {
   const data = localStorage.getItem("state")?JSON.parse(localStorage.getItem("state")):STATE;
@@ -22,6 +23,7 @@ function App() {
             <Route path='/category' Component={Category}/>
             <Route path='/my-account' Component={MyAccount}/>
             <Route path='/product/:id' Component={Detail}/>
+            <Route path='/login' Component={Login}/>
           </Routes>
         </main>
       </UserProvider>
