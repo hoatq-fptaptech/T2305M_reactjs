@@ -1,18 +1,27 @@
-import { useContext, useState } from "react";
+// import { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Context from "../../context/context";
-import { ACTION } from "../../context/reducer";
+import { update_cart } from "../../redux/cart/cart_slice";
+// import Context from "../../context/context";
+// import { ACTION } from "../../context/reducer";
 
 function Product(props){
-    const {state,dispatch} = useContext(Context);
+    // const {state,dispatch} = useContext(Context);
     const product = props.product;
     
+    const cart = useSelector(state => state.cart)
+    const dispatch = useDispatch
     const addToCart = ()=>{
-        const cart = state.cart;
-        cart.push(product);
+        // const cart = state.cart;
+        // cart.push(product);
         // setState({...state,cart: cart});
-        dispatch({type:ACTION.UPDATE_CART,payload:cart});
+        // dispatch({type:ACTION.UPDATE_CART,payload:cart});
         // dispatch({type:"AUTHORIZE",payload:"ajhakjfhakjfhak"});
+
+        // use redux
+        var items = cart.items;
+        // items.push(product);
+        dispatch(update_cart({payload: items}))
     }
 
     return ( // jsx
